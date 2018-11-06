@@ -1,4 +1,5 @@
 from .logs import LoggingMixin
+import collections
 
 
 class EngineIONamespace(LoggingMixin):
@@ -235,7 +236,7 @@ class LoggingSocketIONamespace(SocketIONamespace, LoggingEngineIONamespace):
 
 def find_callback(args, kw=None):
     'Return callback whether passed as a last argument or as a keyword'
-    if args and callable(args[-1]):
+    if args and isinstance(args[-1], collections.Callable):
         return args[-1], args[:-1]
     try:
         return kw['callback'], args
